@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -20,11 +21,97 @@ public class TaskList {
 
     @Column(name = "description", nullable = false)
     private String description;
-    
+
+    @OneToMany(mappedBy = "taskList", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    private List<Task> tasks;
+
     @Column(name = "creation", nullable = false)
     private LocalDateTime creationDate;
 
     @Column(name = "update", nullable = false)
     private LocalDateTime lastUpdateDate;
 
+    public TaskList() {
+    }
+
+    public TaskList(UUID uuid, String title, String description, List<Task> tasks, LocalDateTime creationDate, LocalDateTime lastUpdateDate) {
+        this.uuid = uuid;
+        this.title = title;
+        this.description = description;
+        this.tasks = tasks;
+        this.creationDate = creationDate;
+        this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        TaskList taskList = (TaskList) o;
+        return Objects.equals(uuid, taskList.uuid) && Objects.equals(title, taskList.title) && Objects.equals(description, taskList.description) && Objects.equals(tasks, taskList.tasks) && Objects.equals(creationDate, taskList.creationDate) && Objects.equals(lastUpdateDate, taskList.lastUpdateDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, title, description, tasks, creationDate, lastUpdateDate);
+    }
+
+    @Override
+    public String toString() {
+        return "TaskList{" +
+                "uuid=" + uuid +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", tasks=" + tasks +
+                ", creationDate=" + creationDate +
+                ", lastUpdateDate=" + lastUpdateDate +
+                '}';
+    }
 }
