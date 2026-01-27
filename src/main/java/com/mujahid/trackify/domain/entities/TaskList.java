@@ -91,6 +91,15 @@ public class TaskList {
         this.lastUpdateDate = lastUpdateDate;
     }
 
+    public Integer getClosedTasksCount(){
+        return tasks == null
+                ? 0
+                : Math.toIntExact(
+                tasks.stream()
+                        .filter(task -> task.getTaskStatus() == TaskStatus.CLOSE)
+                        .count());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
