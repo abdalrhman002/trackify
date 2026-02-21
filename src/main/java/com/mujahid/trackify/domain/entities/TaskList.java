@@ -14,7 +14,7 @@ public class TaskList {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false, updatable = false)
-    private UUID uuid;
+    private UUID id;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -34,8 +34,8 @@ public class TaskList {
     public TaskList() {
     }
 
-    public TaskList(UUID uuid, String title, String description, List<Task> tasks, LocalDateTime creationDate, LocalDateTime lastUpdateDate) {
-        this.uuid = uuid;
+    public TaskList(UUID id, String title, String description, List<Task> tasks, LocalDateTime creationDate, LocalDateTime lastUpdateDate) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.tasks = tasks;
@@ -43,12 +43,12 @@ public class TaskList {
         this.lastUpdateDate = lastUpdateDate;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public UUID getId() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setId(UUID uuid) {
+        this.id = uuid;
     }
 
     public String getTitle() {
@@ -104,18 +104,18 @@ public class TaskList {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         TaskList taskList = (TaskList) o;
-        return Objects.equals(uuid, taskList.uuid) && Objects.equals(title, taskList.title) && Objects.equals(description, taskList.description) && Objects.equals(tasks, taskList.tasks) && Objects.equals(creationDate, taskList.creationDate) && Objects.equals(lastUpdateDate, taskList.lastUpdateDate);
+        return Objects.equals(id, taskList.id) && Objects.equals(title, taskList.title) && Objects.equals(description, taskList.description) && Objects.equals(tasks, taskList.tasks) && Objects.equals(creationDate, taskList.creationDate) && Objects.equals(lastUpdateDate, taskList.lastUpdateDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid, title, description, tasks, creationDate, lastUpdateDate);
+        return Objects.hash(id, title, description, tasks, creationDate, lastUpdateDate);
     }
 
     @Override
     public String toString() {
         return "TaskList{" +
-                "uuid=" + uuid +
+                "uuid=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", tasks=" + tasks +

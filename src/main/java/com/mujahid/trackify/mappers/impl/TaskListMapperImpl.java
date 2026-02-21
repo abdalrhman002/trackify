@@ -4,14 +4,12 @@ import com.mujahid.trackify.domain.dto.TaskDto;
 import com.mujahid.trackify.domain.dto.TaskListDto;
 import com.mujahid.trackify.domain.entities.Task;
 import com.mujahid.trackify.domain.entities.TaskList;
-import com.mujahid.trackify.domain.entities.TaskStatus;
 import com.mujahid.trackify.mappers.TaskListMapper;
 import com.mujahid.trackify.mappers.TaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class TaskListMapperImpl implements TaskListMapper {
@@ -59,7 +57,7 @@ public class TaskListMapperImpl implements TaskListMapper {
 
 
         return new  TaskListDto(
-                taskList.getUuid(),
+                taskList.getId(),
                 taskList.getTitle(),
                 taskList.getDescription(),
                 taskDtos,
