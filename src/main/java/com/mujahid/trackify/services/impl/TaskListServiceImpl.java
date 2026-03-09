@@ -1,13 +1,16 @@
 package com.mujahid.trackify.services.impl;
 
 import com.mujahid.trackify.domain.entities.TaskList;
+import com.mujahid.trackify.exceptions.ResourceNotFoundException;
 import com.mujahid.trackify.repositories.TaskListRepository;
 import com.mujahid.trackify.services.TaskListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TaskListServiceImpl implements TaskListService {
@@ -43,5 +46,11 @@ public class TaskListServiceImpl implements TaskListService {
                 now,
                 now
         ));
+    }
+
+    @Override
+    public TaskList getTaskList(UUID id) {
+        return taskListRepository.findById(id).orElseThrow(()->
+                new ResourceNotFoundException("Task list dose not exist!"));
     }
 }
