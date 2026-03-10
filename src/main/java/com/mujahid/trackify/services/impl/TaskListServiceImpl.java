@@ -61,7 +61,7 @@ public class TaskListServiceImpl implements TaskListService {
             throw new IllegalArgumentException("Task list id is required!");
         }
         if (!Objects.equals(taskList.getId(), id)){
-            throw new IllegalArgumentException("Id mismatch!");
+            throw new IllegalArgumentException("Id mismatch!, can not update");
         }
         TaskList currentTaskList = taskListRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Task list dose not exist!"));
@@ -72,4 +72,11 @@ public class TaskListServiceImpl implements TaskListService {
 
         return taskListRepository.save(currentTaskList);
     }
+
+    @Override
+    public void deleteTaskList(UUID id) {
+
+        taskListRepository.deleteById(id);
+    }
+
 }
