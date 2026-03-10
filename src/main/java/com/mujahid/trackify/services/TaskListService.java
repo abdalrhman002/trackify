@@ -9,4 +9,5 @@ public interface TaskListService {
     List<TaskList> listTaskLists();
     TaskList creatTaskList(TaskList taskList);
     TaskList getTaskList(UUID id);
+    TaskList updateTaskList(UUID id, TaskList taskList);
 }

@@ -10,6 +10,7 @@ import org.springframework.web.client.ResourceAccessException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -52,5 +53,23 @@ public class TaskListServiceImpl implements TaskListService {
     public TaskList getTaskList(UUID id) {
         return taskListRepository.findById(id).orElseThrow(()->
                 new ResourceNotFoundException("Task list dose not exist!"));
+    }
+
+    @Override
+    public TaskList updateTaskList(UUID id, TaskList taskList) {
+        if (id == null){
+            throw new IllegalArgumentException("Task list id is required!");
+        }
+        if (!Objects.equals(taskList.getId(), id)){
+            throw new IllegalArgumentException("Id mismatch!");
+        }
+        TaskList currentTaskList = taskListRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Task list dose not exist!"));
+
+        currentTaskList.setTitle(taskList.getTitle());
+        currentTaskList.setDescription(taskList.getDescription());
+        currentTaskList.setLastUpdateDate(LocalDateTime.now());
+
+        return taskListRepository.save(currentTaskList);
     }
 }
