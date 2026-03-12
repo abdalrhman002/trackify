@@ -1,14 +1,12 @@
 package com.mujahid.trackify.controllers;
 
 import com.mujahid.trackify.domain.dto.TaskDto;
+import com.mujahid.trackify.domain.dto.TaskListDto;
 import com.mujahid.trackify.mappers.TaskMapper;
 import com.mujahid.trackify.services.TaskService;
 import com.mujahid.trackify.services.impl.TaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,5 +29,13 @@ public class TasksController {
                 .stream()
                 .map(taskMapper::toDto)
                 .toList();
+    }
+
+    @PostMapping
+    public TaskDto creatTask(@PathVariable("task_list_id")UUID taskListId,
+                             @RequestBody TaskDto taskDto){
+        return taskMapper.toDto(
+                taskService.creatTask(
+                        taskListId, taskMapper.formDto(taskDto)));
     }
 }

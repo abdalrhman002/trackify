@@ -18,16 +18,16 @@ public class Task {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
 
     @Column(name = "due_date")
     private LocalDateTime dueDate;
 
-    @Column(name = "creation", nullable = false)
+    @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
 
-    @Column(name = "update", nullable = false)
+    @Column(name = "last_update_date", nullable = false)
     private LocalDateTime lastUpdateDate;
 
     @Column(name = "priority", nullable = false)
