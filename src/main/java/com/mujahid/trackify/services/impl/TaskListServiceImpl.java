@@ -4,6 +4,7 @@ import com.mujahid.trackify.domain.entities.TaskList;
 import com.mujahid.trackify.exceptions.ResourceNotFoundException;
 import com.mujahid.trackify.repositories.TaskListRepository;
 import com.mujahid.trackify.services.TaskListService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
@@ -55,6 +56,7 @@ public class TaskListServiceImpl implements TaskListService {
                 new ResourceNotFoundException("Task list dose not exist!"));
     }
 
+    @Transactional
     @Override
     public TaskList updateTaskList(UUID id, TaskList taskList) {
         if (id == null){

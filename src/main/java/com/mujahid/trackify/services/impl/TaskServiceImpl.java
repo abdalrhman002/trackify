@@ -4,14 +4,17 @@ import com.mujahid.trackify.domain.entities.Task;
 import com.mujahid.trackify.domain.entities.TaskList;
 import com.mujahid.trackify.domain.entities.TaskPriority;
 import com.mujahid.trackify.domain.entities.TaskStatus;
+import com.mujahid.trackify.exceptions.ResourceNotFoundException;
 import com.mujahid.trackify.repositories.TaskListRepository;
 import com.mujahid.trackify.repositories.TaskRepository;
 import com.mujahid.trackify.services.TaskService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,6 +34,7 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findByTaskListId(taskListId);
     }
 
+    @Transactional
     @Override
     public Task creatTask(UUID taskListId, Task task) {
         if (task.getId() != null){
@@ -64,5 +68,59 @@ public class TaskServiceImpl implements TaskService {
         );
         return taskRepository.save(taskToSave);
 
+    }
+
+    @Override
+    public Task getTask(UUID taskListId, UUID taskId) {
+        return taskRepository
+                .findByTaskListIdAndId(taskListId, taskId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Task with this id and task list id not found!"
+                        ));
+    }
+
+    @Transactional
+    @Override
+    public Task updateTask(UUID taskListId, UUID taskId, Task updatedTask) {
+
+        if(updatedTask.getId() == null){
+            throw new IllegalArgumentException("Task must has an id!");
+        }
+        if (!Objects.equals(updatedTask.getId(), taskId)){
+            throw new IllegalArgumentException("Id miss match, can not update task!");
+        }
+        if (updatedTask.getTitle() == null || updatedTask.getTitle().isBlank()){
+            throw new IllegalArgumentException("Task must has a title!");
+        }
+        if(updatedTask.getTaskStatus() == null){
+            throw new IllegalArgumentException("Task must has a valid status!");
+        }
+        if(updatedTask.getTaskPriority() == null){
+            throw new IllegalArgumentException("Task must has a valid priority!");
+        }
+
+        Task taskToUpdate = taskRepository
+                .findByTaskListIdAndId(taskListId, taskId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Task with this id and task list id not found!"
+                        ));
+
+        taskToUpdate.setTitle(updatedTask.getTitle());
+        taskToUpdate.setDescription(updatedTask.getDescription());
+        taskToUpdate.setTaskStatus(updatedTask.getTaskStatus());
+        taskToUpdate.setTaskPriority(updatedTask.getTaskPriority());
+        taskToUpdate.setDueDate(updatedTask.getDueDate());
+        taskToUpdate.setLastUpdateDate(LocalDateTime.now());
+
+        return taskRepository.save(taskToUpdate);
+
+    }
+
+    @Transactional
+    @Override
+    public void deleteTask(UUID taskListId, UUID taskId) {
+        taskRepository.deleteByTaskListIdAndId(taskListId, taskId);
     }
 }
