@@ -67,7 +67,6 @@ public class TaskServiceImpl implements TaskService {
                 taskList
         );
         return taskRepository.save(taskToSave);
-
     }
 
     @Override
@@ -115,7 +114,6 @@ public class TaskServiceImpl implements TaskService {
         taskToUpdate.setLastUpdateDate(LocalDateTime.now());
 
         return taskRepository.save(taskToUpdate);
-
     }
 
     @Transactional
