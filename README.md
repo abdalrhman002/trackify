@@ -101,7 +101,7 @@ http://localhost:8080/api/swagger-ui/index.html
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/trackify.git
+git clone https://github.com/abdalrhman002/trackify.git
 cd trackify
 ```
 
