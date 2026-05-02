@@ -1,7 +1,7 @@
 package com.mujahid.trackify.domain.dto;
 
-import com.mujahid.trackify.domain.entities.TaskPriority;
-import com.mujahid.trackify.domain.entities.TaskStatus;
+import com.mujahid.trackify.domain.enums.TaskPriority;
+import com.mujahid.trackify.domain.enums.TaskStatus;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

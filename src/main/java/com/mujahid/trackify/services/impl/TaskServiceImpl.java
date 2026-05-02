@@ -2,8 +2,8 @@ package com.mujahid.trackify.services.impl;
 
 import com.mujahid.trackify.domain.entities.Task;
 import com.mujahid.trackify.domain.entities.TaskList;
-import com.mujahid.trackify.domain.entities.TaskPriority;
-import com.mujahid.trackify.domain.entities.TaskStatus;
+import com.mujahid.trackify.domain.enums.TaskPriority;
+import com.mujahid.trackify.domain.enums.TaskStatus;
 import com.mujahid.trackify.exceptions.ResourceNotFoundException;
 import com.mujahid.trackify.repositories.TaskListRepository;
 import com.mujahid.trackify.repositories.TaskRepository;

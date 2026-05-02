@@ -1,8 +1,17 @@
 services:
   db:
-    image: postgres:latest
+    image: mysql:8.0
+    container_name: mysql_trakify_db
     ports:
-      - "5432:5432"
+      - "3307:3306"
     restart: always
     environment:
-      POSTGRES_PASSWORD: changemeinproduction
+      MYSQL_ROOT_PASSWORD: changemeinproduction
+      MYSQL_DATABASE: trackify_db
+      MYSQL_USER: trackifyuser
+      MYSQL_PASSWORD: changemeinproduction
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
