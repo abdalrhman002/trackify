@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 public interface TaskListMapper {
     TaskList toEntity(TaskListRequestDto taskListRequestDto);
 
-    @Mapping(target = "userId", source = "user.id")
     TaskListResponseDto toDto(TaskList taskList);
 }
+
+

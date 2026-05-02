@@ -44,4 +44,14 @@ public class TaskList {
     @Column(name = "last_update_date", nullable = false)
     private LocalDateTime lastUpdateDate;
 
+    @PrePersist
+    protected void onCreate() {
+        this.creationDate = LocalDateTime.now();
+        this.lastUpdateDate = LocalDateTime.now();
+    }
+    @PreUpdate
+    protected void onUpdate() {
+        this.lastUpdateDate = LocalDateTime.now();
+    }
+
 }
